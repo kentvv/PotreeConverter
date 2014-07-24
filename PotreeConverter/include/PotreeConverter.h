@@ -3,10 +3,10 @@
 #ifndef POTREE_CONVERTER_H
 #define POTREE_CONVERTER_H
 
-#define POTREE_FORMAT_VERSION "1.1"
+#define POTREE_FORMAT_VERSION "1.2"
 
 #include "AABB.h"
-#include "PointReader.h"
+#include "lasreader.hpp"
 
 #include <string>
 #include <vector>
@@ -14,11 +14,19 @@
 #include <map>
 #include <cstdint>
 
+class SparseGrid;
+
 
 using std::vector;
 using std::string;
 using std::stringstream;
 using std::map;
+
+enum OutputFormat{
+	BINARY,
+	LAS,
+	LAZ
+};
 
 struct ProcessResult{
 	vector<int> indices;
@@ -35,8 +43,8 @@ struct ProcessResult{
 class PotreeConverter{
 
 private:
-	map<string, PointReader*> reader;
-	map<string, PointReader*>::iterator currentReader;
+	map<string, LASreader*> reader;
+	map<string, LASreader*>::iterator currentReader;
 	AABB aabb;
 	vector<string> fData;
 	string workDir;
@@ -44,12 +52,16 @@ private:
 	stringstream cloudJs;
 	int maxDepth;
 	string format;
+	OutputFormat outputFormat;
+
 	float range;
 
 	char *buffer;
 
 	bool readNextPoint();
-	Point getPoint();
+	LASpoint &getPoint();
+	void addAncestorsToGrid(SparseGrid & grid, string &target);
+	string getOutputExtension();
 
 public:
 

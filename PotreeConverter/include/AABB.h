@@ -21,9 +21,9 @@ public:
 	Vector3 size;
 
 	AABB(){
-		min = Vector3(std::numeric_limits<float>::max());
-		max = Vector3(-std::numeric_limits<float>::max());
-		size = Vector3(std::numeric_limits<float>::max());
+		min = Vector3(std::numeric_limits<double>::max());
+		max = Vector3(-std::numeric_limits<double>::max());
+		size = Vector3(std::numeric_limits<double>::max());
 	}
 
 	AABB(Vector3 min, Vector3 max){
@@ -42,6 +42,16 @@ public:
 		}
 
 		return false;
+	}
+
+	void update(Vector3 &point){
+		min.x = std::min(min.x, point.x);
+		min.y = std::min(min.y, point.y);
+		min.z = std::min(min.z, point.z);
+
+		max.x = std::max(max.x, point.x);
+		max.y = std::max(max.y, point.y);
+		max.z = std::max(max.z, point.z);
 	}
 
 	friend ostream &operator<<( ostream &output,  const AABB &value ){ 

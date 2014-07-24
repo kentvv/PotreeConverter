@@ -6,15 +6,14 @@
 #include "Point.h"
 #include "PointReader.h"
 
-#include <liblas/liblas.hpp>
+#include "lasreader.hpp"
+#include "lasdefinitions.hpp"
 
 #include <string>
 
 using std::string;
 
-
 #include <iostream>
-
 
 using std::ifstream;
 using std::cout;
@@ -24,8 +23,9 @@ using std::endl;
 class LASPointReader : public PointReader{
 private:
 	AABB aabb;
-	ifstream stream;
-	liblas::Reader reader;
+	string file;
+	LASreadOpener *readOpener;
+	LASreader *reader;
 
 public:
 
@@ -40,6 +40,10 @@ public:
 	long numPoints();
 
 	void close();
+
+	Vector3 getScale();
+
+	LASheader const &getHeader();
 };
 
 #endif

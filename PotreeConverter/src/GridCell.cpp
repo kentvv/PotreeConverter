@@ -39,7 +39,7 @@ float GridCell::minGap(const Point &p){
 
 	for(int i = 0; i < points.size(); i++){
 		Point point = points[i];
-		minGap = min(minGap, point.distanceTo(p));
+		minGap = min(minGap, (float)point.distanceTo(p));
 	}
 
 	return minGap;

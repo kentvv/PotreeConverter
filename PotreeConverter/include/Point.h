@@ -10,13 +10,14 @@ using std::ostream;
 
 class Point{
 public:
-	float x;
-	float y;
-	float z;
+	double x;
+	double y;
+	double z;
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
 	unsigned char a;
+	unsigned short intensity;
 
 	Point(){
 		this->x = 0;
@@ -28,7 +29,7 @@ public:
 		this->a = 255;
 	}
 
-	Point(float x, float y, float z, unsigned char r, unsigned char g, unsigned char b){
+	Point(double x, double y, double z, unsigned char r, unsigned char g, unsigned char b){
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -38,7 +39,7 @@ public:
 		this->a = 255;
 	}
 
-	Point(float x, float y, float z){
+	Point(double x, double y, double z){
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -48,7 +49,7 @@ public:
 		this->a = 255;
 	}
 
-	float distanceTo(const Point &p){
+	double distanceTo(const Point &p){
 		return Vector3(x-p.x, y-p.y, z-p.z).length();
 	}
 

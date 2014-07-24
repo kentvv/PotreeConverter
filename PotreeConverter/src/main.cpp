@@ -51,9 +51,8 @@ void printUsage(po::options_description &desc){
 	cout << desc << endl;
 }
 
-#include "XYZPointReader.h"
-
 int main(int argc, char **argv){
+
 	vector<string> source;
 	string outdir;
 	float spacing;

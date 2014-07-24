@@ -22,6 +22,7 @@
 
 using std::ifstream;
 using std::ofstream;
+using std::fstream;
 using std::ios;
 using std::string;
 using std::min;
@@ -87,5 +88,7 @@ bool endsWith (std::string const &fullString, std::string const &ending);
  * see http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case
  */
 string toUpper(string str);
+
+
 
 #endif
