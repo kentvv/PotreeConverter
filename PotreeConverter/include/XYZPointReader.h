@@ -36,11 +36,13 @@ private:
 	AABB aabb;
 	ifstream stream;
 	long pointsRead;
+	long linesIgnored;
 	char *buffer;
 	int pointByteSize;
 	Point point;
 	string format;
 	float range;
+
 
 public:
 	XYZPointReader(string file, string format, float range)
@@ -49,7 +51,7 @@ public:
 		this->format = format;
 		this->range = range;
 		pointsRead = 0;
-
+		linesIgnored = 0;
 	}
 
 	bool readNextPoint(){
@@ -65,8 +67,10 @@ public:
 			trim(line);
 			vector<string> tokens;
 			split(tokens, line, is_any_of("\t ,"), token_compress_on);
-			if(tokens.size() < format.size()){
-				throw PotreeException("Not enough tokens for the given format");
+			if(tokens.size() != format.size()) {
+				std::cout << "Token length not consistant with given format" << std::endl;
+				std::cout << linesIgnored << ": Lines have been Ignored" << std::endl;
+				++linesIgnored;
 			}
 			for(int i = 0; i < format.size(); i++){
 				string token = tokens[i];
@@ -107,6 +111,10 @@ public:
 		AABB aabb;
 
 		return aabb;
+	}
+
+	long linesIgnored(){
+		return linesIgnored;
 	}
 
 	long numPoints(){
