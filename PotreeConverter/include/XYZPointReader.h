@@ -49,7 +49,7 @@ public:
 		this->format = format;
 		this->range = range;
 		pointsRead = 0;
-		
+
 	}
 
 	bool readNextPoint(){
@@ -64,7 +64,7 @@ public:
 		if(getline(stream, line)){
 			trim(line);
 			vector<string> tokens;
-			split(tokens, line, is_any_of("\t ,"), token_compress_on); 
+			split(tokens, line, is_any_of("\t ,"), token_compress_on);
 			if(tokens.size() < format.size()){
 				throw PotreeException("Not enough tokens for the given format");
 			}
@@ -76,12 +76,14 @@ public:
 					y = stof(token);
 				}else if(format[i] == 'z'){
 					z = stof(token);
+				}else if(format[i] == '?'){
+					// do nothing
 				}else if(format[i] == 'r'){
-					r = 255.0f * stof(token) / range; 
+					r = 255.0f * stof(token) / range;
 				}else if(format[i] == 'g'){
-					g = 255.0f * stof(token) / range; 
+					g = 255.0f * stof(token) / range;
 				}else if(format[i] == 'b'){
-					b = 255.0f * stof(token) / range; 
+					b = 255.0f * stof(token) / range;
 				}else if(format[i] == 'i'){
 					r = 255.0f * stof(token) / range;
 					g = r;
